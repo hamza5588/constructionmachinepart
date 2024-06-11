@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .video-background video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .company-name {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            font-size: 90px;
+            color: #8B4513; /* Brown color */
+            font-family: 'Great Vibes', cursive;
+            z-index: 1;
+        }
+        .container {
+            background-color: rgba(145, 193, 199, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            overflow: hidden;
+            width: 80%;
+            max-width: 1020px;
+            max-height: 1000px;
+            z-index: 1;
+        }
+        .sidebar {
+            padding: 20px;
+            background-color: #398c8f;
+            color: white;
+            width: 30%;
+            box-sizing: border-box;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+        }
+        .sidebar label {
+            display: block;
+            margin: 15px 0 5px;
+        }
+        .sidebar input, .sidebar select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .main {
+            padding: 20px;
+            width: 70%;
+            box-sizing: border-box;
+        }
+        .main h2 {
+            margin-top: 0;
+        }
+        .main .prediction-box {
+            background-color: #cfc5c5;
+            border-radius: 4px;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        .predict-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #2bb4a2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .predict-button:hover {
+            background-color: #064e7e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="video-background">
+    <video autoplay muted loop>
+        <source src="media/video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+<div class="company-name">ConstructMatrics</div>
+
+<div class="container">
+    <div class="sidebar">
+        <h2>Input Parameters</h2>
+        <label for="machineModel">Machine Model</label>
+        <select id="machineModel">
+            <option value="KOM-Mach">KOM-Mach</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <label for="partNo">Part No.</label>
+        <select id="partNo">
+            <option value="04120-21737">04120-21737</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <label for="description">Description</label>
+        <select id="description">
+            <option value="V-Belt">V-Belt</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" value="2024-03-07">
+
+        <label for="unitPrice">Unit Price</label>
+        <input type="number" id="unitPrice" value="2495.00">
+
+        <button class="predict-button" onclick="makePrediction()">Predict</button>
+    </div>
+
+    <div class="main">
+        <h2>Prediction</h2>
+        <div class="prediction-box" id="predictionBox">
+            Predicted Unit Price: <span id="predictedPrice">16</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    function makePrediction() {
+        // Here, you would call your prediction API and update the prediction box
+        // For example:
+        // let predictedPrice = callYourApiAndGetPrediction();
+        // document.getElementById('predictedPrice').innerText = predictedPrice;
+
+        // Simulating prediction for this template
+        document.getElementById('predictedPrice').innerText = 'Simulated Prediction';
+    }
+</script>
+
+</body>
+</html>

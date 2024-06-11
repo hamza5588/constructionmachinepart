@@ -1,0 +1,180 @@
+{%  load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .video-background video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .company-name {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            font-size: 90px;
+            color: #8B4513; /* Brown color */
+            font-family: 'Great Vibes', cursive;
+            z-index: 1;
+        }
+        .container {
+            background-color: rgba(145, 193, 199, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            overflow: hidden;
+            width: 80%;
+            max-width: 1020px;
+            max-height: 1000px;
+            z-index: 1;
+        }
+        .sidebar {
+            padding: 20px;
+            background-color: #398c8f;
+            color: white;
+            width: 30%;
+            box-sizing: border-box;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+        }
+        .sidebar label {
+            display: block;
+            margin: 15px 0 5px;
+        }
+        .sidebar input, .sidebar select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .main {
+            padding: 20px;
+            width: 70%;
+            box-sizing: border-box;
+        }
+        .main h2 {
+            margin-top: 0;
+        }
+        .main .prediction-box {
+            background-color: #cfc5c5;
+            border-radius: 4px;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        .predict-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #2bb4a2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .predict-button:hover {
+            background-color: #064e7e;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffc107; /* Yellow color */
+            border-radius: 4px;
+        }
+        .response p {
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="video-background">
+    <video autoplay muted loop>
+        <source src="{% static 'video.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+<div class="company-name">ConstructMatrics</div>
+
+<div class="container">
+    <div class="sidebar">
+        <h2>Input Parameters</h2>
+        <form id="predictionForm" method="post" action="{% url 'predict_quantity' %}">
+            {% csrf_token %}
+            <label for="machineModel">Machine Model</label>
+            <select id="machineModel" name="machine_model">
+                {% for model in machine_models %}
+                    <option value="{{ model }}">{{ model }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="partNo">Part No.</label>
+            <select id="partNo" name="part_no">
+                {% for part in part_nos %}
+                    <option value="{{ part }}">{{ part }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="description">Description</label>
+            <select id="description" name="description">
+                {% for desc in descriptions %}
+                    <option value="{{ desc }}">{{ desc }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" value="2024-03-07">
+
+            <label for="unitPrice">Unit Price</label>
+            <input type="number" id="unitPrice" name="unit_price" value="2495.00">
+
+            <button type="submit" class="predict-button">Predict</button>
+        </form>
+    </div>
+
+    <div class="main">
+        <h2>Prediction</h2>
+        <div class="prediction-box" id="predictionBox">
+            Quantity: <span id="predictedPrice">{{ ypredict }}</span>
+        </div>
+    </div>
+
+ 
+
+
+</body>
+</html>
